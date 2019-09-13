@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
+import Img from "gatsby-image"
 import Layout from "../components/layout"
 
 const IndexPage = ({ data }) => (
@@ -13,6 +14,9 @@ const IndexPage = ({ data }) => (
           <h2>
             <Link to={`/${document.node.id}`}>{document.node.title}</Link>
           </h2>
+
+          <Img fixed={document.node.image.childImageSharp.fixed} />
+
           <p>{document.node.content}</p>
         </li>
       ))}
@@ -31,6 +35,13 @@ export const pageQuery = graphql`
           id
           title
           content
+          image {
+            childImageSharp {
+              fixed(width: 200, height: 125) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
         }
       }
     }
